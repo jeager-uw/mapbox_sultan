@@ -92,7 +92,7 @@
             featureGroup.clearLayers();
         }
 
-        document.getElementById('export').onclick = function(e) {
+        document.getElementById('save').onclick = function(e) {
             // Extract GeoJson from featureGroup
             var data = featureGroup.toGeoJSON();
 
@@ -100,8 +100,8 @@
             var convertedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
             
             // add timeStamp
-            //var currentThyme = new Date();
-            //convertedData.thyme = currentThyme;
+            var currentThyme = new Date();
+            convertedData.thyme = currentThyme;
 
             // Create export
             document.getElementById('save').setAttribute('href', 'data:' + convertedData);
