@@ -26,7 +26,7 @@
             bottom: 0;
             width: 100%;
         }
-        #delete, #export {
+        #delete, #save {
             position: absolute;
             top:50px;
             right:10px;
@@ -40,7 +40,7 @@
             font-size:12px;
             text-decoration:none;
         }
-        #export {
+        #save {
             top:90px;
         }
     </style>
@@ -50,7 +50,7 @@
 
     <div id='map'></div>
     <div id='delete'>Delete Features</div>
-    <a href='#' id='export'>Export Features</a>
+    <a href='#' id='export'>Save Features</a>
 
     <script>
         var map = L.mapbox.map('map')
@@ -92,7 +92,7 @@
             featureGroup.clearLayers();
         }
 
-        document.getElementById('export').onclick = function(e) {
+        document.getElementById('save').onclick = function(e) {
             // Extract GeoJson from featureGroup
             var data = featureGroup.toGeoJSON();
 
@@ -100,8 +100,8 @@
             var convertedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
 
             // Create export
-            document.getElementById('export').setAttribute('href', 'data:' + convertedData);
-            document.getElementById('export').setAttribute('download','data.geojson');
+            document.getElementById('save').setAttribute('href', 'data:' + convertedData);
+            document.getElementById('save').setAttribute('download','data.geojson');
         }
     </script>
 
