@@ -101,7 +101,7 @@
             
             // add timeStamp
             var currentThyme = new Date();
-            convertedData["thyme"] = currentThyme;
+            convertedData.thyme = currentThyme.toString() ;
 
             // Create export
             document.getElementById('save').setAttribute('href', 'data:' + convertedData);
