@@ -3,7 +3,7 @@
 
 <head>
     <meta charset=utf-8 />
-    <title>Demo</title>
+    <title>Sultan Trails UW LCY</title>
 
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
 
@@ -14,6 +14,8 @@
     <!--Add draw plugin -->
     <link rel='stylesheet' href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.css' />
     <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.js'></script>
+    <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+
 
     <style>
         body {
@@ -95,19 +97,36 @@
         document.getElementById('save').onclick = function(e) {
             // Extract GeoJson from featureGroup
             var data = featureGroup.toGeoJSON();
+    
             
-            // add timeStamp
-            var currentThyme = new Date();
-            data.thyme = currentThyme.toString() ;
-
-
             // Stringify the GeoJson
-            var convertedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
+            var convertedData = JSON.stringify(data);
+            var oData = data.features[0];
+            console.log(JSON.stringify(data));
             
+            var thyme = new Date();
+            var sthyme = thyme.toString();
+            
+            //var eData = data.features.map(function (el) {
+              //return el.properties.coordinates;
+            //});
+            
+            console.log(JSON.stringify(oData));
+            
+            var mapboxClient = mapboxSdk({accessToken:'sk.eyJ1IjoiamltZWFnYWgiLCJhIjoiY2s5ajZzdTY5MDFuczNldG5lbXlheDB3NCJ9.ZT8IsmxmBR0fxJAi5V7Imw'});
+            mapboxClient.datasets.putFeature({
+                  datasetId: 'ck9j63pne04ef2lp3cy2rwzzo',
+                  featureId: 'new',
+                  feature: oData
+                })
+                  .send()
+                  .then(response => {
+                    const feature = response.body;
+                  });
             
             // Create export
-            document.getElementById('save').setAttribute('href', 'data:' + convertedData);
-            document.getElementById('save').setAttribute('download','data.geojson');
+            //document.getElementById('save').setAttribute('href', 'data:' + convertedData);
+            //document.getElementById('save').setAttribute('download','data.geojson');
         }
     </script>
 
