@@ -108,22 +108,35 @@
             var sthyme = thyme.toString();
             
             var eData = data.features.map(function (el) {
-            return el.properties
+            return el.geometry
             });
             
             console.log(JSON.stringify(oData));
+            console.log(data.features.length.toString());
             
             var mapboxClient = mapboxSdk({accessToken:'sk.eyJ1IjoiamltZWFnYWgiLCJhIjoiY2s5ajZzdTY5MDFuczNldG5lbXlheDB3NCJ9.ZT8IsmxmBR0fxJAi5V7Imw'});
-            mapboxClient.datasets.putFeature({
+            
+            // turn geojson collection to iterable array 
+            var geoFeat = data.features;
+            var i = 0;
+            
+            for (i of geoFeat) {
+                var putData = i;
+                var numbId = Math.floor(Math.random() * 10);
+                
+                mapboxClient.datasets.putFeature({
                   datasetId: 'ck9j63pne04ef2lp3cy2rwzzo',
-                  featureId: sthyme,
-                  feature: oData
+                  featureId: sthyme.concat("feature ", numbId.toString()),
+                  feature: putData
                 })
                   .send()
                   .then(response => {
                     const feature = response.body;
-                  });
-            
+                  })
+                  .then(result => alert("Submission successful!"),
+                        error => alert("There seems to be a problem. Try again."))
+                ;
+            };
             // Create export
             //document.getElementById('save').setAttribute('href', 'data:' + convertedData);
             //document.getElementById('save').setAttribute('download','data.geojson');
