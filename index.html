@@ -60,10 +60,10 @@
 
         // Add layers to the map
         L.control.layers({
-            'Satellite Map': L.mapbox.tileLayer('https://api.mapbox.com/v4/mapbox.mapbox-satellite-v9/1/0/0.mvt?', {
+            'Satellite Map': L.mapbox.tileLayer('https://api.mapbox.com/v4/mapbox.mapbox-satellite-v9.json', {
                 detectRetina: true
             }).addTo(map),
-            'Terrain Map': L.mapbox.tileLayer('https://api.mapbox.com/v4/mapbox.mapbox-streets-v11/1/0/0.mvt?', {
+            'Terrain Map': L.mapbox.tileLayer('https://api.mapbox.com/v4/mapbox.mapbox-streets-v11.json', {
                 detectRetina: true
             })
         }).addTo(map);
